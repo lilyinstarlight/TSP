@@ -1,0 +1,27 @@
+<project name="TSP" default="dist" basedir=".">
+	<description>A semi-efficient implementation to solve the travelling salesman problem.</description>
+
+	<property file="build.properties" />
+
+	<target name="init">
+		<mkdir dir="${build}" />
+		<mkdir dir="${build}/classes" />
+	</target>
+
+	<target name="compile" depends="init" description="Compile the classes">
+		<javac includeantruntime="false" target="${target}" source="${target}" srcdir="${src}" destdir="${build}/classes" />
+	</target>
+
+	<target name="dist" depends="compile" description="Generate a JAR file">
+		<mkdir dir="${dist}" />
+		<manifest file="build/MANIFEST.MF">
+			<attribute name="Main-Class" value="${mainclass}" />
+		</manifest>
+		<jar jarfile="${dist}/${output}" manifest="${build}/MANIFEST.MF" basedir="${build}/classes" />
+	</target>
+
+	<target name="clean" description="Clean up compiled files">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+</project>
