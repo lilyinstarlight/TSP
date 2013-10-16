@@ -1,10 +1,8 @@
-import java.util.ArrayList;
-
 public class Solver {
-	public int[] calculate(ArrayList<ArrayList<Double>> locations) {
-		int[] path = new int[locations.size()];
+	public int[] calculate(double[][] locations) {
+		int[] path = new int[locations.length];
 
-		for(ArrayList<Double> location : locations) {
+		for(double[] location : locations) {
 		}
 
 		return path;
