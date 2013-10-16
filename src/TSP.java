@@ -50,6 +50,15 @@ public class TSP {
 			alert("Error parsing data");
 			System.exit(1);
 		}
+
+		Solver solver = new Solver();
+		int[] path = solver.calculate(locations);
+
+		String message = location_names.get(path[0]);
+		for(int i = 1; i < path.length; i++) {
+			message += " to " + location_names.get(path[i]);
+		}
+		alert(message);
 	}
 
 	private static void alert(String message) {
