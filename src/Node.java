@@ -117,18 +117,27 @@ public class Node {
 			value += low1 + low2;
 		}
 
-		return getPathCost() + value / 2;
+		return getParentCost() + value / 2;
 	}
 
 	/**
-	 * Get the cost of the path up to this point
+	 * Get the cost of the entire path up to this point
 	 *
 	 * @return Cost of path
 	 */
 	public double getPathCost() {
+		return locations[locations.length - active_set.length][index] + getParentCost();
+	}
+
+	/**
+	 * Get the cost up to the parent at this point
+	 *
+	 * @return Cost of path
+	 */
+	public double getParentCost() {
 		if(parent == null)
 			return 0;
 
-		return parent_cost + parent.getPathCost();
+		return parent_cost + parent.getParentCost();
 	}
 }
