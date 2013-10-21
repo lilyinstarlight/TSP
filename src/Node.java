@@ -93,6 +93,9 @@ public class Node {
 	public double getLowerBound() {
 		double value = 0;
 
+		if(active_set.length == 2)
+			return getPathCost() + locations[active_set[0]][active_set[1]];
+
 		for(int location : active_set) {
 			double low1 = Double.MAX_VALUE;
 			double low2 = Double.MAX_VALUE;
