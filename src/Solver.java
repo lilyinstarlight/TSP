@@ -66,9 +66,6 @@ public class Solver {
 		Node[] children = parent.generateChildren();
 
 		for(Node child : children) {
-			if(child.getLowerBound() > best_cost)
-				continue;
-
 			if(child.isTerminal()) {
 				double cost = child.getPathCost();
 				if(cost < best_cost) {
@@ -76,7 +73,7 @@ public class Solver {
 					best_path = child.getPath();
 				}
 			}
-			else {
+			else if(child.getLowerBound() <= best_cost) {
 				traverse(child);
 			}
 		}
