@@ -1,7 +1,7 @@
 import java.util.HashSet;
 
 /**
- * Solves the travelling salesman problem using Branch and Bound by utilizing Node's
+ * Solves the traveling salesman problem using Branch and Bound by utilizing Node's
  */
 public class Solver {
 	double best_cost;
