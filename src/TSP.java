@@ -43,8 +43,9 @@ public class TSP {
 			System.exit(1);
 		}
 
-		ArrayList<String> location_names = new ArrayList<String>(lines);
-		double[][] locations = new double[lines][lines];
+		int number = (int)(Math.sqrt(2 * lines + 0.25) + 0.5); //Magic!
+		ArrayList<String> location_names = new ArrayList<String>(number);
+		double[][] locations = new double[number][number];
 
 		try {
 			String line;

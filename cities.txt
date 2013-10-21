@@ -1,3 +1,6 @@
+Boston	Hartsville	23
 New York	Boston	5
 New York	Hartsville	20
-Boston	Hartsville	22
+Columbia	New York	21
+Columbia	Boston	24
+Columbia	Hartsville	2
