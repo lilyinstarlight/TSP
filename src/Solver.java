@@ -24,8 +24,12 @@ public class Solver {
 		for(int i = 0; i < active_set.length; i++)
 			active_set[i] = i;
 
-		Node root = new Node(null, 0, locations, active_set, 0);
-		traverse(root);
+		Node[] root_nodes = new Node[locations.length];
+		for(int i = 0; i < root_nodes.length; i++)
+			root_nodes[i] = new Node(null, 0, locations, active_set, i);
+		
+		for(Node root : root_nodes)
+			traverse(root);
 
 		return best_path;
 	}
