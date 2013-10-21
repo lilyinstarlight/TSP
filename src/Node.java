@@ -105,10 +105,13 @@ public class Node {
 					continue;
 
 				double cost = locations[location][other];
-				if(cost < low1)
+				if(cost < low1) {
+					low2 = low1;
 					low1 = cost;
-				else if(cost < low2)
+				}
+				else if(cost < low2) {
 					low2 = cost;
+				}
 			}
 
 			value += low1 + low2;
