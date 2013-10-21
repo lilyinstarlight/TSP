@@ -127,7 +127,7 @@ public class Node {
 	 */
 	public double getPathCost() {
 		if(parent == null)
-			return parent_cost;
+			return 0;
 
 		return parent_cost + parent.getPathCost();
 	}
