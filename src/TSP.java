@@ -68,8 +68,11 @@ public class TSP {
 			System.exit(1);
 		}
 
+		Timer timer = new Timer();
 		Solver solver = new Solver();
+		timer.start();
 		int[] path = solver.calculate(locations);
+		timer.stop();
 
 		String message = location_names.get(path[0]);
 		for(int i = 1; i < path.length; i++) {
@@ -77,6 +80,7 @@ public class TSP {
 		}
 		message += " to " + location_names.get(path[0]);
 		message += "\nCost: " + solver.getCost();
+		message += "\nTime: " + timer.getTime();
 		alert(message);
 	}
 
