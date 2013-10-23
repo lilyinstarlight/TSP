@@ -126,7 +126,7 @@ public class Node {
 	 * @return Cost of path
 	 */
 	public double getPathCost() {
-		return locations[locations.length - active_set.length][index] + getParentCost();
+		return locations[0][index] + getParentCost();
 	}
 
 	/**

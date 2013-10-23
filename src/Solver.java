@@ -31,6 +31,15 @@ public class Solver {
 	}
 
 	/**
+	 * Get current path cost
+	 *
+	 * @return The cost
+	 */
+	public double getCost() {
+		return best_cost;
+	}
+
+	/**
 	 * Find the greedy cost for a set of locations
 	 *
 	 * @param i The current location

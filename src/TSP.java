@@ -75,6 +75,8 @@ public class TSP {
 		for(int i = 1; i < path.length; i++) {
 			message += " to " + location_names.get(path[i]);
 		}
+		message += " to " + location_names.get(path[0]);
+		message += "\nCost: " + solver.getCost();
 		alert(message);
 	}
 

@@ -5,6 +5,11 @@ Columbia	Hartsville	2
 Columbia	Boston	24
 Columbia	New York	21
 Silicon Valley	Hartsville	42
-Silicon Valley	Boston	47
-Silicon Valley	New York	45
+Silicon Valley	Boston	57
+Silicon Valley	New York	55
 Silicon Valley	Columbia	40
+Idaho Falls	Hartsville	45
+Idaho Falls	Boston	39
+Idaho Falls	New York	37
+Idaho Falls	Columbia	44
+Idaho Falls	Silicon Valley	26
