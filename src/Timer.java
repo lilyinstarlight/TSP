@@ -1,25 +1,20 @@
-public class Timer
-{
-	long startTime;
-	long stopTime;
-	
-	public Timer()
-	{
-		startTime = -1;
+public class Timer {
+	long start;
+	long stop;
+
+	public Timer() {
+		start = -1;
 	}
-	
-	public void start()
-	{
-		startTime = System.currentTimeMillis();
+
+	public void start() {
+		start = System.currentTimeMillis();
 	}
-	
-	public void stop()
-	{
-		stopTime = System.currentTimeMillis();
+
+	public void stop() {
+		stop = System.currentTimeMillis();
 	}
-	
-	public double getTime()
-	{
-		return (stopTime - startTime) / 1000;
+
+	public double getTime() {
+		return (stop - start) / 1000;
 	}
 }
