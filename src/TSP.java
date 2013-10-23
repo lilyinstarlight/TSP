@@ -80,7 +80,7 @@ public class TSP {
 		}
 		message += " to " + location_names.get(path[0]);
 		message += "\nCost: " + solver.getCost();
-		message += "\nTime: " + timer.getTime();
+		message += "\nTime: " + timer.getTime() + "µs";
 		alert(message);
 	}
 

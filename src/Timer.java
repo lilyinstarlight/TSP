@@ -7,11 +7,11 @@ public class Timer {
 	}
 
 	public void start() {
-		start = System.currentTimeMillis();
+		start = System.nanoTime();
 	}
 
 	public void stop() {
-		stop = System.currentTimeMillis();
+		stop = System.nanoTime();
 	}
 
 	public double getTime() {
