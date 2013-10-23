@@ -49,7 +49,7 @@ public class Solver {
 	 */
 	private double findGreedyCost(int i, HashSet<Integer> location_set, double[][] locations) {
 		if(location_set.isEmpty())
-			return 0;
+			return locations[0][i];
 
 		location_set.remove(i);
 
