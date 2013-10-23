@@ -14,11 +14,11 @@ public class Solver {
 	 * @return An integer array with the indices of the locations
 	 */
 	public int[] calculate(double[][] locations) {
-		//HashSet<Integer> location_set = new HashSet<Integer>(locations.length);
-		//for(int location : locations[0])
-		//	location_set.add(location)
+		HashSet<Integer> location_set = new HashSet<Integer>(locations.length);
+		for(int i = 0; i < locations.length; i++)
+			location_set.add(i);
 
-		best_cost = Double.MAX_VALUE; //findGreedyCost(0, location_set, locations);
+		best_cost = findGreedyCost(0, location_set, locations);
 
 		int[] active_set = new int[locations.length];
 		for(int i = 0; i < active_set.length; i++)
