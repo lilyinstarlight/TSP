@@ -6,12 +6,20 @@ City Format
 -----------
 Cities and their distances are stored in a file that is selected at runtime.  A sample file, `cities.txt`, contains a few cities with coordinates from 15 cities in Luxembourg.  The format is the standard TSPLIB format and is as follows:
 ```
-<City 1> <x> <y>
-<City 2> <x> <y>
+NAME: <name>
+COMMENT: <comment>
+TYPE: TSP
+DIMENSION: <n>
+EDGE_WIEGHT_TYPE: EUC_2D
+NODE_COORD_SECTION
+<1> <x> <y>
+<2> <x> <y>
 ...
+<n> <x> <y>
+EOF
 ```
 
-The loader also supports using the TSPLIB headers if they are supplied or the EOF tag, but they are unnecessary.
+The headers and EOF are all optional but the loader will use them if specified.
 
 Running
 -------
