@@ -1,30 +1,44 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
  * Solves the traveling salesman problem using Branch and Bound by utilizing Node's
  */
 public class Solver {
+	double[][] distances;
 	double best_cost;
 	int[] best_path;
 
 	/**
+	 * Constructs a new Solver and initializes distances array
+	 *
+	 * @param cities An ArrayList of City's
+	 */
+	public Solver(ArrayList<City> cities) {
+		distances = new double[cities.size()][cities.size()];
+		for(int i = 0; i < cities.size(); i++) {
+			for(int ii = 0; ii < cities.size(); ii++)
+				distances[i][ii] = cities.get(i).distance(cities.get(ii));
+		}
+	}
+
+	/**
 	 * Calculates the shortest (non-repeating) path between a series of nodes
 	 *
-	 * @param locations The 2D array of distance between locations
-	 * @return An integer array with the indices of the locations
+	 * @return An array with the locations of the best path
 	 */
-	public int[] calculate(double[][] locations) {
-		HashSet<Integer> location_set = new HashSet<Integer>(locations.length);
-		for(int i = 0; i < locations.length; i++)
+	public int[] calculate() {
+		HashSet<Integer> location_set = new HashSet<Integer>(distances.length);
+		for(int i = 0; i < distances.length; i++)
 			location_set.add(i);
 
-		best_cost = findGreedyCost(0, location_set, locations);
+		best_cost = findGreedyCost(0, location_set, distances);
 
-		int[] active_set = new int[locations.length];
+		int[] active_set = new int[distances.length];
 		for(int i = 0; i < active_set.length; i++)
 			active_set[i] = i;
 
-		Node root = new Node(null, 0, locations, active_set, 0);
+		Node root = new Node(null, 0, distances, active_set, 0);
 		traverse(root);
 
 		return best_path;
@@ -44,26 +58,26 @@ public class Solver {
 	 *
 	 * @param i The current location
 	 * @param location_set Set of all remaining locations
-	 * @param locations The 2D array containing point distances
+	 * @param distances The 2D array containing point distances
 	 * @return The greedy cost
 	 */
-	private double findGreedyCost(int i, HashSet<Integer> location_set, double[][] locations) {
+	private double findGreedyCost(int i, HashSet<Integer> location_set, double[][] distances) {
 		if(location_set.isEmpty())
-			return locations[0][i];
+			return distances[0][i];
 
 		location_set.remove(i);
 
 		double lowest = Double.MAX_VALUE;
 		int closest = 0;
 		for(int location : location_set) {
-			double cost = locations[i][location];
+			double cost = distances[i][location];
 			if(cost < lowest) {
 				lowest = cost;
 				closest = location;
 			}
 		}
 
-		return lowest + findGreedyCost(closest, location_set, locations);
+		return lowest + findGreedyCost(closest, location_set, distances);
 	}
 
 	/**

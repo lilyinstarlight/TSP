@@ -4,15 +4,14 @@ A branch and bound solution to the travelling salesman problem.  To find the bes
 
 City Format
 -----------
-Cities and their distances are stored in a file that is selected at runtime.  A sample file, `cities.txt`, contains a few cities with arbitrary (but approximate) distances.  Only one tab character is allowed between each city and the distance and there should be no duplicate entries.  The format is as follows:
+Cities and their distances are stored in a file that is selected at runtime.  A sample file, `cities.txt`, contains a few cities with coordinates from 15 cities in Luxembourg.  The format is the standard TSPLIB format and is as follows:
 ```
-<City 2>	<City 1>	<distance>
-<City 3>	<City 1>	<distance>
-<City 3>	<City 2>	<distance>
-<City 4>	<City 1>	<distance>
-<City 4>	<City 2>	<distance>
-<City 4>	<City 3>	<distance>
+<City 1> <x> <y>
+<City 2> <x> <y>
+...
 ```
+
+The loader also supports using the TSPLIB headers if they are supplied or the EOF tag, but they are unnecessary.
 
 Running
 -------

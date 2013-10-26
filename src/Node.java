@@ -5,24 +5,24 @@ public class Node {
 	public Node parent;
 	private double parent_cost;
 
-	private double[][] locations;
+	private double[][] distances;
 	private int[] active_set;
 
 	public int index;
 
 	/**
-	 * Constructs a new node
+	 * Constructs a new Node
 	 *
 	 * @param parent This node's parent
 	 * @param parent_cost The cost between these nodes
-	 * @param locations The 2D array of distance between locations
+	 * @param distances The 2D array of distance between locations
 	 * @param active_set The set of all points (including this node) that are being calculated
 	 * @param index The location index of this node
 	 */
-	public Node(Node parent, double parent_cost, double[][] locations, int[] active_set, int index) {
+	public Node(Node parent, double parent_cost, double[][] distances, int[] active_set, int index) {
 		this.parent = parent;
 		this.parent_cost = parent_cost;
-		this.locations = locations;
+		this.distances = distances;
 		this.active_set = active_set;
 		this.index = index;
 	}
@@ -45,18 +45,18 @@ public class Node {
 	public Node[] generateChildren() {
 		Node[] children = new Node[active_set.length - 1];
 
-		int[] new_active_set = new int[active_set.length - 1];
+		int[] new_set = new int[active_set.length - 1];
 		int i = 0;
 		for(int location : active_set) {
 			if(location == index)
 				continue;
 
-			new_active_set[i] = location;
+			new_set[i] = location;
 			i++;
 		}
 
 		for(int j = 0; j < children.length; j++)
-			children[j] = new Node(this, locations[index][new_active_set[j]], locations, new_active_set, new_active_set[j]);
+			children[j] = new Node(this, distances[index][new_set[j]], distances, new_set, new_set[j]);
 
 		return children;
 	}
@@ -67,7 +67,7 @@ public class Node {
 	 * @return The path
 	 */
 	public int[] getPath() {
-		int depth = locations.length - active_set.length + 1;
+		int depth = distances.length - active_set.length + 1;
 		int[] path = new int[depth];
 		getPathIndex(path, depth - 1);
 		return path;
@@ -94,7 +94,7 @@ public class Node {
 		double value = 0;
 
 		if(active_set.length == 2)
-			return getPathCost() + locations[active_set[0]][active_set[1]];
+			return getPathCost() + distances[active_set[0]][active_set[1]];
 
 		for(int location : active_set) {
 			double low1 = Double.MAX_VALUE;
@@ -104,7 +104,7 @@ public class Node {
 				if(other == location)
 					continue;
 
-				double cost = locations[location][other];
+				double cost = distances[location][other];
 				if(cost < low1) {
 					low2 = low1;
 					low1 = cost;
@@ -123,10 +123,10 @@ public class Node {
 	/**
 	 * Get the cost of the entire path up to this point
 	 *
-	 * @return Cost of path
+	 * @return Cost of path including return
 	 */
 	public double getPathCost() {
-		return locations[0][index] + getParentCost();
+		return distances[0][index] + getParentCost();
 	}
 
 	/**

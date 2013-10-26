@@ -1,7 +1,8 @@
 import java.awt.GraphicsEnvironment;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -22,43 +23,43 @@ public class TSP {
 			file = chooser.getSelectedFile();
 		}
 
-		RandomAccessFile reader = null;
+		BufferedReader reader = null;
 		try {
-			reader = new RandomAccessFile(file, "r");
+			reader = new BufferedReader(new FileReader(file));
 		}
 		catch(IOException e) {
 			alert("Error loading file " + e);
 			System.exit(1);
 		}
 
-
-		int lines = 0;
+		int dimension = 0;
 		try {
-			while(reader.readLine() != null)
-				lines++;
-			reader.seek(0);
+			String line;
+			while(!(line = reader.readLine()).equals("NODE_COORD_SECTION")) {
+				String[] entry = line.split(": ", 1);
+				switch(entry[0].trim()) {
+					case "TYPE":
+						if(!entry[1].trim().equals("TSP"))
+							throw new Exception("File not in TSP format");
+						break;
+					case "DIMENSION":
+						dimension = Integer.parseInt(entry[1]);
+						break;
+				}
+			}
 		}
-		catch(IOException e) {
-			alert("Error reading file " + e);
+		catch(Exception e) {
+			alert("Error parsing header " + e);
 			System.exit(1);
 		}
 
-		int cities = (int)(Math.sqrt(2 * lines + 0.25) + 0.5); //Magic!
-		ArrayList<String> location_names = new ArrayList<String>(cities);
-		double[][] locations = new double[cities][cities];
+		ArrayList<City> cities = new ArrayList<City>(dimension);
 
 		try {
 			String line;
-			while((line = reader.readLine()) != null) {
-					String[] distance = line.split("\t");
-
-					if(!location_names.contains(distance[0]))
-						location_names.add(distance[0]);
-					if(!location_names.contains(distance[1]))
-						location_names.add(distance[1]);
-
-					locations[location_names.indexOf(distance[0])][location_names.indexOf(distance[1])] = Double.parseDouble(distance[2]);
-					locations[location_names.indexOf(distance[1])][location_names.indexOf(distance[0])] = Double.parseDouble(distance[2]);
+			while((line = reader.readLine()) != null && !line.equals("EOF")) {
+				String[] entry = line.split(" ");
+				cities.add(new City(entry[0], Double.parseDouble(entry[1]), Double.parseDouble(entry[2])));
 			}
 
 			reader.close();
@@ -69,18 +70,18 @@ public class TSP {
 		}
 
 		Timer timer = new Timer();
-		Solver solver = new Solver();
+		Solver solver = new Solver(cities);
 		timer.start();
-		int[] path = solver.calculate(locations);
+		int[] path = solver.calculate();
 		timer.stop();
 
-		String message = location_names.get(path[0]);
+		String message = cities.get(path[0]).getName();
 		for(int i = 1; i < path.length; i++) {
-			message += " to " + location_names.get(path[i]);
+			message += " to " + cities.get(path[i]).getName();
 		}
-		message += " to " + location_names.get(path[0]);
+		message += " to " + cities.get(path[0]).getName();
 		message += "\nCost: " + solver.getCost();
-		message += "\nTime: " + timer.getTime() + "µs";
+		message += "\nTime: " + timer.getFormattedTime();
 		alert(message);
 	}
 
