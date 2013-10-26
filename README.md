@@ -4,7 +4,7 @@ A branch and bound solution to the travelling salesman problem.  To find the bes
 
 City Format
 -----------
-Cities and their distances are stored in a file that is selected at runtime.  A sample file, `cities.txt`, contains a few cities with coordinates from 15 cities in Luxembourg.  The format is the standard TSPLIB format and is as follows:
+Cities and their distances are stored in a file that is selected at runtime.  A sample file, `tsp/cities.txt`, contains the coordinates from 15 cities in Luxembourg and demonstrates the file format.  The format is the standard TSPLIB format and is as follows:
 ```
 NAME: <name>
 COMMENT: <comment>
