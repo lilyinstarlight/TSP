@@ -25,5 +25,5 @@ Running
 -------
 The program can be run with the cities file as an argument or a dialog will ask for the file.  The command line arguments are:
 ```
-java -jar TSP.jar cities.txt
+java -jar TSP.jar cities.tsp.txt
 ```
